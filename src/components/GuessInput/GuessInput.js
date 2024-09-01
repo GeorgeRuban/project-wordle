@@ -1,11 +1,12 @@
 import React from 'react';
 import { WORD_LENGTH } from '../../constants';
 
-function GuessInput({addGuess}) {
+function GuessInput({addGuess, disabled}) {
   const [guess, setGuess] = React.useState("");
   return (
     <form 
       className="guess-input-wrapper"
+      disabled={disabled}
       onSubmit={(event)=>{
         // Don't actually submit the form (which would reload the page, since there is no action=url)
         event.preventDefault();
@@ -28,6 +29,7 @@ function GuessInput({addGuess}) {
         title={`${WORD_LENGTH} letter word`}
         required
         value={guess}
+        disabled={disabled}
         onChange={(event)=>{
           setGuess(event.target.value.toUpperCase());
         }} 
