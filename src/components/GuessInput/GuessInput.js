@@ -13,7 +13,6 @@ function GuessInput({addGuess}) {
           alert(`Please guess exactly ${WORD_LENGTH} characters.`);
           return;
         }
-        console.info({guess});
         addGuess(guess);
         setGuess("");
       }}>

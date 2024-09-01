@@ -4,8 +4,12 @@ import { range } from '../../utils';
 
 function Guess({guess}) {
   return <p className="guess">
-    { range(WORD_LENGTH).map(index =>
-        <span class="cell" key={index}>{guess ? guess.charAt(index) : ''}</span>
+    { 
+      range(WORD_LENGTH).map(index =>{
+        const className = "cell " + (guess ? guess[index].status : "");
+        const letter = (guess ? guess[index].letter : "");
+        return <span className={className} key={index}>{letter}</span>
+      }
     )}
   </p>;
 }
