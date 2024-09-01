@@ -1,17 +1,14 @@
 import React from 'react';
 
 import { range, sample } from '../../utils';
-import Banner from '../Banner';
 import GuessInput from '../GuessInput';
 import { WORDS } from '../../data';
 import GuessResults from '../GuessResults';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
-import { checkGuess } from '../../game-helpers'; 
+import { checkGuess } from '../../game-helpers';
+import HappyBanner from '../HappyBanner';
+import SadBanner from '../SadBanner';
 
-// Pick a random word on every pageload.
-const answer = sample(WORDS);
-// To make debugging easier, we'll log the solution in the console.
-console.info({ answer });
 
 function Game() {
   const [guessResults, setGuessResults] = React.useState(
@@ -19,6 +16,7 @@ function Game() {
   const [guessNumber, setGuessNumber] = React.useState(0);
   const [gameOver, setGameOver] = React.useState(false);
   const [won, setWon] = React.useState(false);
+  const [answer, setAnswer] = React.useState(sample(WORDS));
 
   function addGuess(newGuess) {
     setGuessResults(
@@ -34,9 +32,18 @@ function Game() {
     }
   }
 
+  function restart() {
+    setWon(false);
+    setGuessResults(range(NUM_OF_GUESSES_ALLOWED).map(() => null));
+    setAnswer(sample(WORDS));
+    setGameOver(false);
+    setGuessNumber(0);
+  }
+
   return (<>
-    {gameOver && 
-      <Banner won={won} guessNumber={guessNumber} answer={answer} />}
+    {gameOver && (won 
+      ? <HappyBanner guessNumber={guessNumber} restart={restart}/> 
+      : <SadBanner answer={answer} restart={restart}/>)}
     <GuessResults results={guessResults} />
     <GuessInput addGuess={addGuess} disabled={gameOver}/>
   </>);
