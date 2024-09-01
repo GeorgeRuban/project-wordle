@@ -1,16 +1,16 @@
 import React from 'react';
+import { WORD_LENGTH } from '../../constants';
 
 function GuessInput({addGuess}) {
   const [guess, setGuess] = React.useState("");
-  const minLength = 5;
   return (
     <form 
       className="guess-input-wrapper"
       onSubmit={(event)=>{
         // Don't actually submit the form (which would reload the page, since there is no action=url)
         event.preventDefault();
-        if (guess.length < minLength) {
-          alert(`Please guess exactly ${minLength} characters.`);
+        if (guess.length < WORD_LENGTH) {
+          alert(`Please guess exactly ${WORD_LENGTH} characters.`);
           return;
         }
         console.info({guess});
@@ -21,12 +21,12 @@ function GuessInput({addGuess}) {
       <input 
         id="guess-input" 
         type="text"
-        maxLength={minLength}
-        minLength={minLength}
+        maxLength={WORD_LENGTH}
+        minLength={WORD_LENGTH}
         // minLength attribute fails when the toUpperCase() method changes the characters entered.
         // Using pattern instead, with title for clarification of the error.
-        pattern={`[a-zA-Z]{${minLength}}`}
-        title={`${minLength} letter word`}
+        pattern={`[a-zA-Z]{${WORD_LENGTH}}`}
+        title={`${WORD_LENGTH} letter word`}
         required
         value={guess}
         onChange={(event)=>{
