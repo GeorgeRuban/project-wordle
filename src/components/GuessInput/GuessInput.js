@@ -1,13 +1,13 @@
-import React from 'react';
-import { WORD_LENGTH } from '../../constants';
+import React from "react";
+import { WORD_LENGTH } from "../../constants";
 
-function GuessInput({addGuess, disabled}) {
+function GuessInput({ addGuess, disabled }) {
   const [guess, setGuess] = React.useState("");
   return (
-    <form 
+    <form
       className="guess-input-wrapper"
       disabled={disabled}
-      onSubmit={(event)=>{
+      onSubmit={(event) => {
         // Don't actually submit the form (which would reload the page, since there is no action=url)
         event.preventDefault();
         if (guess.length < WORD_LENGTH) {
@@ -16,10 +16,11 @@ function GuessInput({addGuess, disabled}) {
         }
         addGuess(guess);
         setGuess("");
-      }}>
+      }}
+    >
       <label htmlFor="guess-input">Enter guess:</label>
-      <input 
-        id="guess-input" 
+      <input
+        id="guess-input"
         type="text"
         maxLength={WORD_LENGTH}
         minLength={WORD_LENGTH}
@@ -30,12 +31,12 @@ function GuessInput({addGuess, disabled}) {
         required
         value={guess}
         disabled={disabled}
-        onChange={(event)=>{
+        onChange={(event) => {
           setGuess(event.target.value.toUpperCase());
-        }} 
+        }}
       />
-    </form>);
+    </form>
+  );
 }
 
 export default GuessInput;
-
